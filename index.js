@@ -237,4 +237,8 @@ app.get('/.well_known/openid-configuration', (_, res) => {
   )
 })
 
+app.get('/', (_, res) => {
+  res.send('Hey there :)')
+})
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
