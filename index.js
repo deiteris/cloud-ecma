@@ -207,7 +207,7 @@ app.get('/.well_known/oauth-authorization-server', (_, res) => {
         "code"
       ],
       "token_endpoint_auth_methods_supported": ["client_secret_basic"],
-      "token_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/token/",  // POST method, successful response code is 200
+      "token_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/token",  // POST method, successful response code is 200
       "token_endpoint_auth_signing_alg_values_supported": [
         "HS256"
       ],
@@ -228,7 +228,7 @@ app.get('/.well_known/openid-configuration', (_, res) => {
       "response_types_supported": [
         "code"
       ],
-      "token_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/token/",  // POST method, successful response code is 200
+      "token_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/token",  // POST method, successful response code is 200
       "id_token_signing_alg_values_supported": [
         "HS256"
       ],
