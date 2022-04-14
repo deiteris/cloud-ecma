@@ -1,0 +1,22 @@
+{
+  "name": "ecma-cloud",
+  "version": "0.0.1",
+  "description": "A sample Node.js app using Express 4",
+  "engines": {
+    "node": "16.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "node-cache": "^5.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deiteris/cloud-ecma"
+  }
+}

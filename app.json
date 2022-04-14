@@ -1,0 +1,5 @@
+{
+  "name": "ECMA Cloud Mock API",
+  "description": "A mock service for REST API testing.",
+  "repository": "https://github.com/deiteris/cloud-ecma"
+}
