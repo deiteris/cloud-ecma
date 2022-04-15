@@ -16,7 +16,7 @@ const token_storage = new NodeCache({
   useClones: false
 })
 const code_storage = new NodeCache({
-  stdTTL: 60,
+  stdTTL: 300,
   checkperiod: 5,
   useClones: false
 })
