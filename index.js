@@ -198,7 +198,7 @@ app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) =
   )
 })
 
-app.get('/.well_known/oauth-authorization-server', (_, res) => {
+app.get('/.well-known/oauth-authorization-server', (_, res) => {
   res.json(
     {
       "authorization_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/authorize",  // GET method always responds with code 302
@@ -216,7 +216,7 @@ app.get('/.well_known/oauth-authorization-server', (_, res) => {
   )
 })
 
-app.get('/.well_known/openid-configuration', (_, res) => {
+app.get('/.well-known/openid-configuration', (_, res) => {
   res.json(
     {
       "authorization_endpoint": "https://cloud-ecma.herokuapp.com/api/v2/idp/authorize",  // GET method always responds with code 302
