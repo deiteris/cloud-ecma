@@ -52,7 +52,7 @@ app.get('/api/v2/tenants', auth, (req, res) => {
     })
     return
   }
-  
+
   res.json(
     {
       "items": [
@@ -113,10 +113,8 @@ app.get('/api/v2/idp/authorize', express.urlencoded({extended: true}), (req, res
 })
 
 app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) => {
-  console.log(req.query)
-
-  const grant_type = req.query.grant_type
-  let recv_scope = req.query.scope
+  const grant_type = req.body.grant_type
+  let recv_scope = req.body.recv_scope
 
   if (!['client_credentials', 'authorization_code'].includes(grant_type)) {
     res.status(400).json(({
@@ -151,7 +149,24 @@ app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) =
   }
 
   if (grant_type === 'authorization_code') {
-    const code_data = code_storage.get(req.query.code)
+    const code = req.body.code
+    const recv_redirect_uri = req.body.redirect_uri
+
+    if (!code) {
+      res.status(401).json({
+        error: "Please provide code."
+      })
+      return
+    }
+
+    if (!recv_redirect_uri) {
+      res.status(401).json({
+        error: "Please provide redirect URI."
+      })
+      return
+    }
+
+    const code_data = code_storage.get(code)
     if (!code_data) {
       res.status(401).json({
         error: "Invalid code provided."
@@ -165,7 +180,6 @@ app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) =
       })
       return
     }
-    const recv_redirect_uri = req.query.redirect_uri
     if (redirect_uri !== recv_redirect_uri) {
       res.status(401).json({
         error: "Redirect URI doesn't match the redirect URI that was used to issue this code."
@@ -173,12 +187,12 @@ app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) =
       return
     }
     recv_scope = scope
-    code_storage.del(req.query.code)
+    code_storage.del(code)
   }
 
   const token_data = {
-    client_id: recv_client_id, 
-    client_secret: recv_client_secret, 
+    client_id: recv_client_id,
+    client_secret: recv_client_secret,
     scope: recv_scope
   }
   const id_token = jwt.sign(token_data, JWT_SECRET, {
@@ -212,7 +226,7 @@ app.get('/.well-known/oauth-authorization-server', (_, res) => {
         "HS256"
       ],
       "issuer": "https://cloud-ecma.herokuapp.com/"
-    }    
+    }
   )
 })
 
