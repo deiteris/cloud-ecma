@@ -114,7 +114,7 @@ app.get('/api/v2/idp/authorize', express.urlencoded({extended: true}), (req, res
 
 app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) => {
   const grant_type = req.body.grant_type
-  let recv_scope = req.body.recv_scope
+  let recv_scope = req.body.scope
 
   if (!['client_credentials', 'authorization_code'].includes(grant_type)) {
     res.status(400).json(({
@@ -195,6 +195,7 @@ app.post('/api/v2/idp/token', express.urlencoded({extended: true}), (req, res) =
     client_secret: recv_client_secret,
     scope: recv_scope
   }
+  console.log(token_data)
   const id_token = jwt.sign(token_data, JWT_SECRET, {
     issuer: 'https://cloud-ecma.herokuapp.com/',
     expiresIn: TOKEN_TTL
